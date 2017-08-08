@@ -67,10 +67,12 @@
 	};
 
 	var enable = function() {
-		// Listen to a couple key touch events
-		window.addEventListener('touchstart', handleTouchstart, false);
-		window.addEventListener('touchmove', handleTouchmove, false);
-		enabled = true;
+		if (scrollSupport) {
+			// Listen to a couple key touch events
+			window.addEventListener('touchstart', handleTouchstart, false);
+			window.addEventListener('touchmove', handleTouchmove, false);
+			enabled = true;
+		}
 	};
 
 	var disable = function() {
@@ -92,10 +94,6 @@
 	testDiv.style.WebkitOverflowScrolling = 'touch';
 	var scrollSupport = 'getComputedStyle' in window && window.getComputedStyle(testDiv)['-webkit-overflow-scrolling'] === 'touch';
 	document.documentElement.removeChild(testDiv);
-
-	if (scrollSupport) {
-		enable();
-	}
 
 	// A module to support enabling/disabling iNoBounce
 	var iNoBounce = {
